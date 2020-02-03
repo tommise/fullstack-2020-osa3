@@ -12,6 +12,10 @@ code {
     monospace;
 }
 
+h2 {
+  color: darkgoldenrod;
+}
+
 .successMessage {
   color: green;
   background: lightgrey;
