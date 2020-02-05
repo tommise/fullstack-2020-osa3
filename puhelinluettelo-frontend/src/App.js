@@ -71,7 +71,16 @@ const App = () => {
             setNotificationMessage(null)
           }, 5000)
         })
-    }
+        .catch(error => {
+          setNewName('')
+          setNewNumber('')
+          setNotificationMessage(`Error: ${error.response.data.error}`)
+          setTimeout(() => {
+            setNotificationMessage(null)
+          }, 5000)
+
+        })
+      }
   }
 
   const removeName = (event) => {
@@ -83,10 +92,10 @@ const App = () => {
     const confirmed = window.confirm(`Do you want to remove ${name}?`)
 
     if (confirmed) {
+      setPersons(persons.filter(person => person.id !== personId))
       personService
         .remove(personId)
         .then(() => {
-          setPersons(persons.filter(person => person.id !== Number(personId)))
           setNotificationMessage(`${name} has been removed.`)
           setTimeout(() => {
             setNotificationMessage(null)
@@ -110,7 +119,7 @@ const App = () => {
   const handleNumberChange = (event) => {
     setNewNumber(event.target.value)
   }
-  
+
   const handleFilterChange = (event) => {
     setNewFilter(event.target.value.toLowerCase())
   }
